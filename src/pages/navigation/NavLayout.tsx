@@ -23,7 +23,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({ children }) => {
         {/* Main content area */}
         <main className="flex-1 flex flex-col">
           {/* Page content */}
-          <div className="flex-1 bg-black">
+          <div className="flex-1">
             {children}
           </div>
           
