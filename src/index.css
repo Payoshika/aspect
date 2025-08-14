@@ -1,15 +1,10 @@
 @import "tailwindcss";
 
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 @theme{
   --color-primary: #27549D;
+  --color-secondary: #7099DB;
+  --color-accent: #F1FF24;
+  --color-light-grey: #FFFFFF4D;
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
