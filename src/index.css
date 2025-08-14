@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+body {
+  background-color: #f7f9fd;
+  a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+}
+
 @theme{
   --color-primary: #27549D;
   --color-secondary: #7099DB;
