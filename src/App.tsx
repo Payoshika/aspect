@@ -4,6 +4,7 @@ import NavLayout from './pages/navigation/NavLayout'
 import Login from './pages/login/Login'
 import ForgotPassword from './pages/login/ForgotPassword'
 import ChangePassword from './pages/login/ChangePassword'
+import NewJobLayout from './pages/new_job/NewJobLayout'
 
 function App() {
   return (
@@ -12,14 +13,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/change-password" element={<ChangePassword email="test-email@gmail.com" passwordUpdatedAt="2025 Aug 11"/>} />
-        <Route path="/" element={
+        <Route path="/new-job" element={
           <NavLayout>
-            <div className="p-6">
-              <p className="mt-2 text-gray-600">Welcome to your dashboard!</p>
-            </div>
+            <NewJobLayout/>
           </NavLayout>
         } />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/new-job" replace />} />
       </Routes>
     </Router>
   )

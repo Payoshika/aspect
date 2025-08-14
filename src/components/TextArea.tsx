@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface EmailInputProps {
+interface TextAreaProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -10,20 +10,22 @@ interface EmailInputProps {
   name?: string;
   error?: string;
   label?: string;
+  rows?: number;
 }
 
-const EmailInput: React.FC<EmailInputProps> = ({
+const TextArea: React.FC<TextAreaProps> = ({
   value,
   onChange,
-  placeholder = "Enter your email",
+  placeholder = "Enter your text here",
   className = "",
   disabled = false,
   required = false,
-  name = "email",
+  name = "textarea",
   error,
-  label
+  label,
+  rows = 6
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
   };
 
@@ -35,12 +37,12 @@ const EmailInput: React.FC<EmailInputProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      <input
-        type="email"
+      <textarea
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
-        className={`w-full px-4 py-3 border rounded-md ${
+        rows={rows}
+        className={`w-full px-4 py-3 border rounded-md resize-vertical ${
           error 
             ? 'border-red-300 focus:ring-red-500' 
             : 'border-gray-300 focus:ring-blue-500'
@@ -56,4 +58,4 @@ const EmailInput: React.FC<EmailInputProps> = ({
   );
 };
 
-export default EmailInput;
+export default TextArea;

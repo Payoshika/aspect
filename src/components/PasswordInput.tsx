@@ -71,7 +71,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          className={`w-full px-3 py-2 pr-10 border rounded-md ${
+          className={`w-full px-4 py-3 pr-10 border rounded-md ${
             error 
               ? 'border-red-300 focus:ring-red-500' 
               : 'border-gray-300 focus:ring-blue-500'
