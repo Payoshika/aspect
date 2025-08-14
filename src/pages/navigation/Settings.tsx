@@ -15,7 +15,7 @@ const Settings: React.FC = () => {
   return (
     <div className="mt-auto mb-10">
       <hr className="hidden border-t border-gray-200 my-2 lg:block" />
-      <h3 className="px-4 py-2 text-xs font-semibold tracking-wider">
+      <h3 className="px-4 py-2">
         Settings
       </h3>
       <nav className="px-2">
@@ -23,7 +23,7 @@ const Settings: React.FC = () => {
         <div className="block lg:hidden">
             <a
             href="#"
-            className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+            className="group flex items-center px-2 py-2 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
             >
             <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
                 <span className="text-lg">
@@ -37,7 +37,7 @@ const Settings: React.FC = () => {
           <a
             key={item.name}
             href="#"
-            className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+            className="group flex items-center px-2 py-2 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
           >
             <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
               <span className="text-lg">{item.icon}</span>
@@ -49,7 +49,7 @@ const Settings: React.FC = () => {
       <div className="block lg:hidden">
         <a
           href="#"
-          className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+          className="group flex items-center px-2 py-2 hover:bg-gray-50 hover:text-gray-900"
         >
           <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
             <span className="text-lg">

@@ -11,7 +11,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex">
       {/* NavSideBar - only visible on md+ screens, takes precedence */}
-      <div className="hidden md:block w-64 flex-shrink-0">
+      <div className="hidden md:block w-64">
         <NavSideBar />
       </div>
       

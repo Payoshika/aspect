@@ -20,7 +20,7 @@ const MobileSideBar: React.FC = () => {
       {/* Hamburger Button */}
       <button
         onClick={toggleSidebar}
-        className="p-2 rounded-lg border border-white bg-[#FFFFFF4D] text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+        className="p-2 rounded-lg border border-white bg-light-grey text-gray-600 hover:text-gray-900"
         aria-label="Open menu"
       >
         <HugeiconsIcon icon={Menu01Icon} />

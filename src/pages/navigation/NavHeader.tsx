@@ -20,7 +20,7 @@ const NavHeader: React.FC = () => {
       className="w-full flex items-center justify-between px-4 bg-cover bg-center bg-no-repeat h-[10vh] md:h-[15vh]"
       style={{ backgroundImage: `url(${navHeaderBackground})` }}
     >
-      <span className="text-lg font-semibold drop-shadow-lg text-accent">NavHeader</span>
+      <span className="text-lg text-accent">NavHeader</span>
 
       {/* Mobile Sidebar - only visible on screens smaller than lg */}
       <div className="lg:hidden">

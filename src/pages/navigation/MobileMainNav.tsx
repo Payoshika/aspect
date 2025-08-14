@@ -11,13 +11,13 @@ const MobileMainNav: React.FC = () => {
   ];
 
   return (
-    <nav className="px-4 flex justify-center bg-black">
-      <div className="flex justify-around items-center w-95vw bg-white rounded-t-md">
+    <nav className="px-4 flex justify-center">
+      <div className="flex justify-around items-center min-w-[95vw] bg-white rounded-t-md">
         {menuItems.map((item) => (
           <a
             key={item.name}
             href="#"
-            className="flex flex-col items-center py-2 px-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200"
+            className="flex flex-col items-center py-2 px-3 hover:text-gray-900 transition-colors duration-200"
           >
             <span className="text-xl mb-1">{item.icon}</span>
             <span className="text-xs">{item.name}</span>

@@ -30,7 +30,7 @@ const NavSideBar: React.FC = () => {
             <a
               key={item.name}
               href="#"
-              className="group flex flex-col px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+              className="group flex flex-col px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900"
             >
                 <div className="flex flex-col gap-2 lg:flex-row justify-center lg:justify-start items-center">
                     <span>{item.icon}</span>
