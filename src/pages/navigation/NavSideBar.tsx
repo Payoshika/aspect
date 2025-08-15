@@ -24,8 +24,8 @@ const NavSideBar: React.FC = () => {
       </div>
 
       {/* Section 2: Navigation Menu */}
-      <div className="flex-1 px-2 py-4">
-        <nav className="space-y-1 flex flex-col gap-4">
+      <div className="px-2 py-4 flex flex-col items-center">
+        <nav className="flex flex-col gap-4">
           {navMenuItems.map((item) => (
             <a
               key={item.name}

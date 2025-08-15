@@ -40,7 +40,7 @@ const Radio: React.FC<RadioProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      <div className={`flex flex-col md:flex-row gap-3 ${className}`}>
+      <div className={`flex flex-col md:flex-row gap-3 bg-background px-3 py-4 rounded-md ${className}`}>
         {options.map((option) => (
           <label
             key={option.value}
@@ -56,7 +56,7 @@ const Radio: React.FC<RadioProps> = ({
               onChange={handleChange}
               disabled={disabled}
               required={required}
-              className={`mr-2 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 ${
+              className={`mr-2 w-4 h-4 ${
                 error ? 'border-red-300 focus:ring-red-500' : ''
               } ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
             />

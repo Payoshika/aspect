@@ -29,6 +29,7 @@ const Date: React.FC<DateProps> = ({
   error,
   defaultValue
 }) => {
+    
   return (
     <div className="w-full">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
