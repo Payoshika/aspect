@@ -19,13 +19,15 @@ const JobOwnerPresence: React.FC = () => {
       <h2 className="text-xl font-semibold text-gray-900 mb-2">
         Will you be at the property?
       </h2>
-      <Radio
-        value={jobState.ownerPresence}
-        onChange={handleOwnerPresenceChange}
-        options={radioOptions}
-        name="ownerPresence"
-        required
-      />
+      <div className='bg-background p-2 rounded-md'>
+        <Radio
+          value={jobState.ownerPresence}
+          onChange={handleOwnerPresenceChange}
+          options={radioOptions}
+          name="ownerPresence"
+          required
+        />
+      </div>
     </div>
   );
 };

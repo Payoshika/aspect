@@ -40,7 +40,7 @@ const Radio: React.FC<RadioProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      <div className={`flex flex-col md:flex-row gap-3 bg-background px-3 py-4 rounded-md ${className}`}>
+      <div className={`flex flex-col md:flex-row gap-3 px-3 py-4 rounded-md ${className}`}>
         {options.map((option) => (
           <label
             key={option.value}
