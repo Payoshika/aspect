@@ -16,8 +16,8 @@ const Property: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold">Where is your property</h2>
+    <div className="bg-white rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold mb-2">Where is your property</h2>
       <div className="bg-background p-4 rounded-md">
         <Select
             value={jobState.selectedProperty}
