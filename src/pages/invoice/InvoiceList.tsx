@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { FilterIcon, Sorting05Icon, Download05Icon, MoreVerticalIcon } from '@hugeicons/core-free-icons';
+import { FilterIcon, Sorting05Icon, Download05Icon, MoreVerticalIcon, CheckmarkCircle02Icon, AlertCircleIcon, ArrowUp01Icon, ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import CreditCardChoiceModal from './CreditCardChoiceModal';
 
 interface Invoice {
   id: string;
@@ -9,7 +10,7 @@ interface Invoice {
   jobRef: string;
   date: string;
   amount: number;
-  status: 'Paid' | 'Pending' | 'Outstanding';
+  status: 'Paid' | 'Outstanding';
   due: number;
 }
 
@@ -44,7 +45,7 @@ const ActionDropdown: React.FC<ActionDropdownProps> = ({
   const dropdownId = `${itemType}-${itemId}`;
 
   return (
-    <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+    <div className="absolute right-1 top-1/2 transform -translate-y-1/2 z-50">
       <div className="relative">
         <button
           onClick={() => onToggle(dropdownId)}
@@ -55,7 +56,7 @@ const ActionDropdown: React.FC<ActionDropdownProps> = ({
         
         {/* Dropdown Menu */}
         {isOpen && (
-          <div className="absolute right-0 mt-1 w-24 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+          <div className="absolute right-0 mt-1 w-24 bg-white rounded-md shadow-lg border border-gray-200 z-[100]">
             <button
               onClick={() => onView(itemId)}
               className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 rounded-t-md"
@@ -80,6 +81,9 @@ const ActionDropdown: React.FC<ActionDropdownProps> = ({
 const InvoiceList: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'invoice' | 'creditNotes'>('invoice');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedInvoiceForPayment, setSelectedInvoiceForPayment] = useState<Invoice | null>(null);
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   // Sample invoice data
   const invoices: Invoice[] = [
@@ -98,7 +102,7 @@ const InvoiceList: React.FC = () => {
       jobRef: 'JOB-2024-002',
       date: '2024-01-20',
       amount: 850.50,
-      status: 'Pending',
+      status: 'Outstanding',
       due: 850.50
     },
     {
@@ -116,7 +120,7 @@ const InvoiceList: React.FC = () => {
       jobRef: 'JOB-2024-004',
       date: '2024-01-30',
       amount: 750.25,
-      status: 'Pending',
+      status: 'Outstanding',
       due: 750.25
     }
   ];
@@ -170,6 +174,21 @@ const InvoiceList: React.FC = () => {
     setOpenDropdown(null);
   };
 
+  const closePaymentModal = () => {
+    setIsPaymentModalOpen(false);
+    setSelectedInvoiceForPayment(null);
+  };
+
+  const toggleExpandedItem = (itemId: string) => {
+    const newExpandedItems = new Set(expandedItems);
+    if (newExpandedItems.has(itemId)) {
+      newExpandedItems.delete(itemId);
+    } else {
+      newExpandedItems.add(itemId);
+    }
+    setExpandedItems(newExpandedItems);
+  };
+
   const handleView = (itemId: string) => {
     console.log('View clicked for item:', itemId);
     closeDropdown();
@@ -178,6 +197,13 @@ const InvoiceList: React.FC = () => {
   const handlePay = (itemId: string) => {
     console.log('Pay clicked for item:', itemId);
     closeDropdown();
+    
+    // Find the invoice to pay
+    const invoice = invoices.find(inv => inv.id === itemId);
+    if (invoice) {
+      setSelectedInvoiceForPayment(invoice);
+      setIsPaymentModalOpen(true);
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -193,6 +219,17 @@ const InvoiceList: React.FC = () => {
     }
   };
 
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'Paid':
+        return <HugeiconsIcon icon={CheckmarkCircle02Icon} className="w-4 h-4 text-green-600" />;
+      case 'Outstanding':
+        return <HugeiconsIcon icon={AlertCircleIcon} className="w-4 h-4 text-red-600" />;
+      default:
+        return null;
+    }
+  };
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-GB', {
       style: 'currency',
@@ -201,9 +238,9 @@ const InvoiceList: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-2 lg:p-6">
       {/* Section 1: Controls */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div className="flex gap-4 mb-6">
         {/* Toggle Buttons */}
         <div className="flex bg-white rounded-md p-2 gap-2">
           <button
@@ -227,7 +264,6 @@ const InvoiceList: React.FC = () => {
             Credit Notes
           </button>
         </div>
-
         {/* Action Buttons */}
         <div className="flex gap-2 ml-auto">
           <Button
@@ -235,9 +271,9 @@ const InvoiceList: React.FC = () => {
             variant="outline"
             size="sm"
           >
-            <div className='flex items-center'>            
-                <HugeiconsIcon icon={Sorting05Icon} className="w-4 h-4 mr-1" />
-                <span>Sort</span>
+            <div className='flex items-center gap-1'>            
+                <HugeiconsIcon icon={Sorting05Icon} className="w-4 h-4" />
+                <span className='hidden md:block'>Sort</span>
             </div>
           </Button>
           <Button
@@ -245,9 +281,9 @@ const InvoiceList: React.FC = () => {
             variant="outline"
             size="sm"
           >
-        <div className='flex items-center'>            
-            <HugeiconsIcon icon={FilterIcon} className="w-4 h-4 mr-1" />
-            <span>Filter</span>
+        <div className='flex items-center gap-1'>            
+            <HugeiconsIcon icon={FilterIcon} className="w-4 h-4" />
+            <span className='hidden md:block'>Filter</span>
         </div>
           </Button>
           <Button
@@ -255,9 +291,9 @@ const InvoiceList: React.FC = () => {
             variant="primary"
             size="sm"
           >
-        <div className='flex items-center'>            
-            <HugeiconsIcon icon={Download05Icon} className="w-4 h-4 mr-1" />
-            <span>Account Statement</span>
+        <div className='flex items-center gap-1'>            
+            <HugeiconsIcon icon={Download05Icon} className="w-4 h-4" />
+            <span className='hidden md:block'>Account Statement</span>
         </div>
           </Button>
         </div>
@@ -268,8 +304,8 @@ const InvoiceList: React.FC = () => {
         {activeTab === 'invoice' ? (
           /* Invoice List */
           <div className="min-w-full">
-            {/* Invoice Headers */}
-            <div className="grid grid-cols-6 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
+            {/* Invoice Headers - Desktop */}
+            <div className="hidden md:grid grid-cols-6 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
               <div className='text-center'>Number</div>
               <div className='text-center'>Job Ref.</div>
               <div className='text-center'>Date</div>
@@ -277,68 +313,198 @@ const InvoiceList: React.FC = () => {
               <div className='text-center'>Status</div>
               <div className='text-center'>Due</div>
             </div>
+
+            {/* Invoice Headers - Mobile */}
+            <div className="md:hidden grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
+              <div className='text-center'>Number</div>
+              <div className='text-center'>Date</div>
+              <div className='text-center'>Amount</div>
+              <div className='text-center'>Status</div>
+              <div className='text-center'></div>
+            </div>
             
             {/* Invoice Items */}
             {invoices.map((invoice) => (
-              <div
-                key={invoice.id}
-                className={`relative grid grid-cols-6 gap-4 p-4 my-2 border-b rounded-md border-gray-200 hover:bg-gray-50 transition-colors ${
-                  invoice.status === 'Outstanding' ? 'bg-red-50' : 'bg-white'
-                }`}
-              >
-                <div className="font-medium text-center">{invoice.number}</div>
-                <div className="text-gray-700 text-center">{invoice.jobRef}</div>
-                <div className="text-gray-700 text-center">{new Date(invoice.date).toLocaleDateString()}</div>
-                <div className="font-medium text-center">{formatCurrency(invoice.amount)}</div>
-                <div className="flex justify-center text-xs font-medium">
-                    <span className={`text-center px-1.5 py-1 rounded-md ${getStatusColor(invoice.status)}`}>{invoice.status}</span>
+              <div key={invoice.id}>
+                {/* Desktop View */}
+                <div
+                  className={`hidden md:grid relative grid-cols-6 gap-4 p-4 my-2 border-b rounded-md border-gray-200 hover:bg-gray-50 transition-colors ${
+                    invoice.status === 'Outstanding' ? 'bg-red-50' : 'bg-white'
+                  }`}
+                >
+                  <div className="font-medium flex justify-center items-center">{invoice.number}</div>
+                  <div className="text-gray-700 flex justify-center items-center">{invoice.jobRef}</div>
+                  <div className="text-gray-700 flex justify-center items-center">{new Date(invoice.date).toLocaleDateString()}</div>
+                  <div className="font-medium flex justify-center items-center">{formatCurrency(invoice.amount)}</div>
+                  <div className="flex items-center justify-center text-xs font-medium">
+                      <span className={`text-center px-1.5 py-1 rounded-md flex items-center gap-1 ${getStatusColor(invoice.status)}`}>
+                        
+                        {invoice.status}
+                      </span>
+                  </div>
+                  <div className="font-medium flex justify-center items-center">{formatCurrency(invoice.due)}</div>
+                  
+                  <ActionDropdown
+                    itemId={invoice.id}
+                    itemType="invoice"
+                    status={invoice.status}
+                    isOpen={openDropdown === `invoice-${invoice.id}`}
+                    onToggle={toggleDropdown}
+                    onView={handleView}
+                    onPay={handlePay}
+                  />
                 </div>
-                <div className="font-medium text-center">{formatCurrency(invoice.due)}</div>
-                
-                <ActionDropdown
-                  itemId={invoice.id}
-                  itemType="invoice"
-                  status={invoice.status}
-                  isOpen={openDropdown === `invoice-${invoice.id}`}
-                  onToggle={toggleDropdown}
-                  onView={handleView}
-                  onPay={handlePay}
-                />
+
+                {/* Mobile View */}
+                <div
+                  className={`md:hidden ${
+                    invoice.status === 'Outstanding' ? 'bg-red-50' : 'bg-white'
+                  } my-2 border-b rounded-md border-gray-200`}
+                >
+                  <div
+                    onClick={() => toggleExpandedItem(invoice.id)}
+                    className={`grid grid-cols-5 gap-4 p-4 hover:bg-gray-50 transition-colors cursor-pointer`}
+                  >
+                    <div className="font-medium flex justify-center items-center">{invoice.number}</div>
+                    <div className="text-gray-700 flex justify-center items-center">{new Date(invoice.date).toLocaleDateString()}</div>
+                    <div className="font-medium flex justify-center items-center">{formatCurrency(invoice.amount)}</div>
+                    <div className="flex items-center justify-center text-xs font-medium">
+                        <span className={`text-center px-1.5 py-1 rounded-md flex items-center gap-1 ${getStatusColor(invoice.status)}`}>
+                          {getStatusIcon(invoice.status)}
+                          
+                        </span>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <HugeiconsIcon 
+                        icon={expandedItems.has(invoice.id) ? ArrowUp01Icon : ArrowDown01Icon} 
+                        className="w-4 h-4 text-gray-600" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile Expanded Area */}
+                  {expandedItems.has(invoice.id) && (
+                    <div className="p-4 border-t border-gray-200 bg-gray-50">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 font-medium">Job Reference:</span>
+                          <span className="font-medium">{invoice.jobRef}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 font-medium">Due:</span>
+                          <span className="font-medium">{formatCurrency(invoice.due)}</span>
+                        </div>
+                        <div className="flex gap-2 mt-4">
+                          <Button
+                            onClick={() => handleView(invoice.id)}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            View
+                          </Button>
+                          {invoice.status !== 'Paid' && (
+                            <Button
+                              onClick={() => handlePay(invoice.id)}
+                              variant="primary"
+                              size="sm"
+                              className="flex-1"
+                            >
+                              Pay
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         ) : (
           /* Credit Notes List */
           <div className="min-w-full">
-            {/* Credit Notes Headers */}
-            <div className="grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
+            {/* Credit Notes Headers - Desktop */}
+            <div className="hidden md:grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
               <div className='text-center'>Number</div>
               <div className='text-center'>Invoice Number</div>
               <div className='text-center'>Job Ref</div>
               <div className='text-center'>Date</div>
               <div className='text-center'>Amount</div>
             </div>
+
+            {/* Credit Notes Headers - Mobile */}
+            <div className="md:hidden grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-medium text-gray-700">
+              <div className='text-center'>Number</div>
+              <div className='text-center'>Invoice Number</div>
+              <div className='text-center'>Job Ref</div>
+              <div className='text-center'>Date</div>
+              <div className='text-center'></div>
+            </div>
             
             {/* Credit Notes Items */}
             {creditNotes.map((creditNote) => (
-              <div
-                key={creditNote.id}
-                className="relative grid grid-cols-5 gap-4 my-2 p-4 bg-white rounded-md border-b border-gray-200 hover:bg-gray-50 transition-colors"
-              >
-                <div className="font-medium text-center ">{creditNote.number}</div>
-                <div className="text-gray-700 text-center">{creditNote.invoiceNumber}</div>
-                <div className="text-gray-700 text-center">{creditNote.jobRef}</div>
-                <div className="text-gray-700 text-center">{new Date(creditNote.date).toLocaleDateString()}</div>
-                <div className="font-medium text-center">{formatCurrency(creditNote.amount)}</div>
-                
-                <ActionDropdown
-                  itemId={creditNote.id}
-                  itemType="creditNote"
-                  isOpen={openDropdown === `creditNote-${creditNote.id}`}
-                  onToggle={toggleDropdown}
-                  onView={handleView}
-                  onPay={handlePay}
-                />
+              <div key={creditNote.id}>
+                {/* Desktop View */}
+                <div
+                  className="hidden md:grid relative grid-cols-5 gap-4 my-2 p-4 bg-white rounded-md border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                >
+                  <div className="font-medium text-center">{creditNote.number}</div>
+                  <div className="text-gray-700 text-center">{creditNote.invoiceNumber}</div>
+                  <div className="text-gray-700 text-center">{creditNote.jobRef}</div>
+                  <div className="text-gray-700 text-center">{new Date(creditNote.date).toLocaleDateString()}</div>
+                  <div className="font-medium text-center">{formatCurrency(creditNote.amount)}</div>
+                  
+                  <ActionDropdown
+                    itemId={creditNote.id}
+                    itemType="creditNote"
+                    isOpen={openDropdown === `creditNote-${creditNote.id}`}
+                    onToggle={toggleDropdown}
+                    onView={handleView}
+                    onPay={handlePay}
+                  />
+                </div>
+
+                {/* Mobile View */}
+                <div className="md:hidden bg-white my-2 border-b rounded-md border-gray-200">
+                  <div
+                    onClick={() => toggleExpandedItem(creditNote.id)}
+                    className="grid grid-cols-5 gap-4 p-4 hover:bg-gray-50 transition-colors cursor-pointer"
+                  >
+                    <div className="font-medium text-center">{creditNote.number}</div>
+                    <div className="text-gray-700 text-center">{creditNote.invoiceNumber}</div>
+                    <div className="text-gray-700 text-center">{creditNote.jobRef}</div>
+                    <div className="text-gray-700 text-center">{new Date(creditNote.date).toLocaleDateString()}</div>
+                    <div className="flex justify-center items-center">
+                      <HugeiconsIcon 
+                        icon={expandedItems.has(creditNote.id) ? ArrowUp01Icon : ArrowDown01Icon} 
+                        className="w-4 h-4 text-gray-600" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile Expanded Area */}
+                  {expandedItems.has(creditNote.id) && (
+                    <div className="p-4 border-t border-gray-200 bg-gray-50">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 font-medium">Amount:</span>
+                          <span className="font-medium">{formatCurrency(creditNote.amount)}</span>
+                        </div>
+                        <div className="flex gap-2 mt-4">
+                          <Button
+                            onClick={() => handleView(creditNote.id)}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            View
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -350,6 +516,16 @@ const InvoiceList: React.FC = () => {
         <div
           className="fixed inset-0 z-40"
           onClick={closeDropdown}
+        />
+      )}
+
+      {/* Credit Card Choice Modal */}
+      {selectedInvoiceForPayment && (
+        <CreditCardChoiceModal
+          isOpen={isPaymentModalOpen}
+          onClose={closePaymentModal}
+          invoiceNumber={selectedInvoiceForPayment.number}
+          amount={selectedInvoiceForPayment.due}
         />
       )}
     </div>
