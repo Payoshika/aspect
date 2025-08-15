@@ -10,8 +10,8 @@ const JobPoNumber: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+    <div className="w-full bg-white rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-2">
         PO number
       </h2>
       <div className="bg-background px-3 py-4 rounded-md">

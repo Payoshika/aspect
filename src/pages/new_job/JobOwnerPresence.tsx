@@ -15,8 +15,8 @@ const JobOwnerPresence: React.FC = () => {
   ];
 
   return (
-    <div className="w-full">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+    <div className="w-full bg-white rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-2">
         Will you be at the property?
       </h2>
       <Radio

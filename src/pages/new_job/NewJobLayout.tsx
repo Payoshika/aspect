@@ -7,8 +7,8 @@ const NewJobLayout: React.FC = () => {
   return (
     <NewJobProvider>
       <div className="min-h-screen">
-        <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[7fr_3fr] gap-6 md:gap-8">
+        <div className="container mx-auto px-4 py-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[7fr_3fr]">
             {/* JobDetails Section */}
             <div className="order-1 md:order-1">
               <JobDetails />

@@ -7,8 +7,8 @@ const JobDateTime: React.FC = () => {
 	const { jobState, updateJobState } = useNewJob();
 
 	return (
-		<div className="space-y-4">
-			<h2 className="text-xl font-semibold">When do you need us?</h2>
+		<div className="bg-white rounded-lg shadow-sm p-6">
+			<h2 className="text-xl font-semibold mb-2">When do you need us?</h2>
 			<div className="bg-background p-4 rounded-md space-y-4">
 				<DateField
 					label=""

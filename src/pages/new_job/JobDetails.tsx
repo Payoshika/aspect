@@ -8,7 +8,7 @@ import JobAdditionalDetails from './JobAdditionalDetails';
 
 const JobDetails: React.FC = () => {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
+    <div className="p-6">
       <div className="space-y-6">
         <Property />
         <JobType />

@@ -15,31 +15,27 @@ const JobAdditionalDetails: React.FC = () => {
   };
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full bg-white rounded-lg shadow-sm p-6 flex flex-col gap-2">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
           Additional Details
         </h2>
-        <div className="px-3 py-4 rounded-md">
-          <TextArea
-            value={jobState.additionalDetails}
-            onChange={handleAdditionalDetailsChange}
-            placeholder="Please provide any additional details about the job..."
-            name="additionalDetails"
-            rows={4}
-          />
-        </div>
+        <TextArea
+        value={jobState.additionalDetails}
+        onChange={handleAdditionalDetailsChange}
+        placeholder="Please provide any additional details about the job..."
+        name="additionalDetails"
+        rows={4}
+        />
       </div>
 
       <div>
-        <div className="bg-background px-3 py-4 rounded-md">
           <ImageUploader
             onImagesSelected={handleImagesSelected}
             maxFiles={10}
             maxFileSize={10 * 1024 * 1024}
             className="w-full"
           />
-        </div>
       </div>
     </div>
   );

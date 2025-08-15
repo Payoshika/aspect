@@ -5,6 +5,7 @@ import type { Dayjs } from 'dayjs';
 export type TimeSlot = 'Morning' | 'Afternoon' | 'Evening' | 'Late-Night' | '';
 
 interface JobState {
+  //Job related field
   selectedProperty: string;
   jobType: string;
   jobDescription: string;
@@ -14,6 +15,12 @@ interface JobState {
   poNumber: string;
   additionalDetails: string;
   images: File[];
+  //Booking realated fields
+  halfHourlyRate: number;
+  vatRate: number;
+  accountDiscount: number;
+  discount4Hours: number;
+  discount8Hours: number;
 }
 
 interface NewJobContextType {
@@ -35,6 +42,11 @@ export const NewJobProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     poNumber: '',
     additionalDetails: '',
     images: [],
+    halfHourlyRate: 30,
+    vatRate: 20,
+    accountDiscount: 5,
+    discount4Hours: 5,
+    discount8Hours: 10,
   });
 
   const updateJobState = (updates: Partial<JobState>) => {
@@ -52,6 +64,11 @@ export const NewJobProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       poNumber: '',
       additionalDetails: '',
       images: [],
+      halfHourlyRate: 0,
+      vatRate: 0,
+      accountDiscount: 0,
+      discount4Hours: 5,
+      discount8Hours: 10,
     });
   };
 

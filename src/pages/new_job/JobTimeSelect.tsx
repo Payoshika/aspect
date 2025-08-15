@@ -36,7 +36,7 @@ const JobTimeSelect: React.FC<JobTimeSelectProps> = ({ value, onChange, classNam
             key={opt.value}
             type="button"
             onClick={() => handleSelect(opt.value)}
-            className={`w-full flex justify-between lg:justify-start gap-2 items-center rounded-md border px-4 py-3 lg:px-2 lg:py-0 ${
+            className={`w-full flex justify-between lg:justify-start gap-2 items-center rounded-md border px-4 py-3 lg:px-2 lg:py-1.5 ${
               isSelected
                 ? 'bg-primary text-accent border-transparent'
                 : 'bg-white border-gray-300 hover:bg-gray-50'

@@ -22,9 +22,9 @@ const JobType: React.FC = () => {
 	};
 
 	return (
-		<div className="space-y-4">
-			<h2 className="text-xl font-semibold">What work is required?</h2>
-			<div className="bg-background p-4 rounded-md space-y-4">
+		<div className="bg-white rounded-lg shadow-sm p-6">
+			<h2 className="text-xl font-semibold mb-2">What work is required?</h2>
+			<div className="bg-background p-4 rounded-md flex flex-col gap-3">
 				<Select
 					value={jobState.jobType}
 					onChange={handleTradeChange}
