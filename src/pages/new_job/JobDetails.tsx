@@ -9,7 +9,7 @@ import JobAdditionalDetails from './JobAdditionalDetails';
 const JobDetails: React.FC = () => {
   return (
     <div className="p-6">
-      <div className="space-y-6">
+      <div className="flex flex-col gap-4">
         <Property />
         <JobType />
         <JobDateTime />

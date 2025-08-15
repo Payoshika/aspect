@@ -21,6 +21,9 @@ interface JobState {
   accountDiscount: number;
   discount4Hours: number;
   discount8Hours: number;
+  appliedDiscountCode: string;
+  appliedDisountAmount: number;
+  selectedCardId: string;
 }
 
 interface NewJobContextType {
@@ -47,6 +50,9 @@ export const NewJobProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     accountDiscount: 5,
     discount4Hours: 5,
     discount8Hours: 10,
+    appliedDiscountCode: 'DRAIN25BXQW',
+    appliedDisountAmount: 25,
+    selectedCardId: "",
   });
 
   const updateJobState = (updates: Partial<JobState>) => {
@@ -69,6 +75,9 @@ export const NewJobProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       accountDiscount: 0,
       discount4Hours: 5,
       discount8Hours: 10,
+      appliedDiscountCode: '',
+      appliedDisountAmount: 0,
+      selectedCardId: "",
     });
   };
 
