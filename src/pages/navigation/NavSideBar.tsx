@@ -7,10 +7,10 @@ import { Home03Icon, LicenseIcon, DeliveryTruck02Icon, Analytics01Icon } from '@
 
 const NavSideBar: React.FC = () => {
   const navMenuItems = [
-    { name: 'Home', icon: <HugeiconsIcon icon={Home03Icon} /> },
-    { name: 'Work', icon: <HugeiconsIcon icon={LicenseIcon} /> },
-    { name: 'New Job', icon: <HugeiconsIcon icon={DeliveryTruck02Icon} /> },
-    { name: 'Reports', icon: <HugeiconsIcon icon={Analytics01Icon} /> },
+    { name: 'Home', path: "/", icon: <HugeiconsIcon icon={Home03Icon} /> },
+    { name: 'Work', path: "/", icon: <HugeiconsIcon icon={LicenseIcon} /> },
+    { name: 'New Job', path: "/new-job", icon: <HugeiconsIcon icon={DeliveryTruck02Icon} /> },
+    { name: 'Reports', path: "/", icon: <HugeiconsIcon icon={Analytics01Icon} /> },
   ];
 
   return (
@@ -35,7 +35,7 @@ const NavSideBar: React.FC = () => {
           {navMenuItems.map((item) => (
             <a
               key={item.name}
-              href="#"
+              href={item.path}
               className="group flex flex-col px-4 py-2 rounded-md hover:bg-gray-50 hover:text-gray-900"
             >
                 <div className="flex flex-col gap-2 lg:flex-row justify-center lg:justify-start items-center">

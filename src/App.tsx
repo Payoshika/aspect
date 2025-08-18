@@ -6,6 +6,7 @@ import Login from './pages/login/Login'
 import ForgotPassword from './pages/login/ForgotPassword'
 import ChangePassword from './pages/login/ChangePassword'
 import NewJobLayout from './pages/new_job/NewJobLayout'
+import InvoiceLayout from './pages/invoice/InvoiceLayout'
 
 // Higher-order component to wrap pages with NavLayout
 const withNavLayout = (Component: React.ComponentType) => {
@@ -25,6 +26,8 @@ function App() {
         <Route path="/change-password" element={<ChangePassword email="test-email@gmail.com" passwordUpdatedAt="2025 Aug 11"/>} />
         <Route path="/new-job" element={withNavLayout(NewJobLayout)} />
         <Route path="/billing" element={withNavLayout(BillingLayout)} />
+        <Route path="/invoice" element={withNavLayout(InvoiceLayout)} />
+
         <Route path="*" element={<Navigate to="/new-job" replace />} />
       </Routes>
     </Router>
