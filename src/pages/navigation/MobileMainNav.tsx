@@ -4,10 +4,10 @@ import { Home03Icon, LicenseIcon, DeliveryTruck02Icon, Analytics01Icon } from '@
 
 const MobileMainNav: React.FC = () => {
   const menuItems = [
-    { name: 'Home', icon: <HugeiconsIcon icon={Home03Icon} /> },
-    { name: 'Work', icon: <HugeiconsIcon icon={LicenseIcon} /> },
-    { name: 'New Job', icon: <HugeiconsIcon icon={DeliveryTruck02Icon} /> },
-    { name: 'Reports', icon: <HugeiconsIcon icon={Analytics01Icon} /> },
+    { name: 'Home', path: "/", icon: <HugeiconsIcon icon={Home03Icon} /> },
+    { name: 'Work', path: "/", icon: <HugeiconsIcon icon={LicenseIcon} /> },
+    { name: 'New Job', path: "/new-job", icon: <HugeiconsIcon icon={DeliveryTruck02Icon} /> },
+    { name: 'Reports', path: "/", icon: <HugeiconsIcon icon={Analytics01Icon} /> },
   ];
 
   return (
@@ -16,7 +16,7 @@ const MobileMainNav: React.FC = () => {
         {menuItems.map((item) => (
           <a
             key={item.name}
-            href="#"
+            href={item.path}
             className="flex flex-col items-center py-2 px-3 hover:text-gray-900 transition-colors duration-200"
           >
             <span className="text-xl mb-1">{item.icon}</span>

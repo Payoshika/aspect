@@ -4,12 +4,12 @@ import { Location09Icon, UserMultiple03Icon, Invoice02Icon, SecurityCheckIcon, N
 
 const Settings: React.FC = () => {
   const settingsMenuItems = [
-    { name: 'Locations', icon: <HugeiconsIcon icon={Location09Icon} />},
-    { name: 'Users', icon: <HugeiconsIcon icon={UserMultiple03Icon} /> },
-    { name: 'Billing', icon: <HugeiconsIcon icon={Invoice02Icon} /> },
-    { name: 'Invoices', icon: <HugeiconsIcon icon={SecurityCheckIcon} /> },
-    { name: 'Legal', icon: <HugeiconsIcon icon={Location09Icon} /> },
-    { name: 'Notifications', icon: <HugeiconsIcon icon={Notification01Icon} /> },
+    { name: 'Locations', path: '/locations', icon: <HugeiconsIcon icon={Location09Icon} />},
+    { name: 'Users', path: '/users', icon: <HugeiconsIcon icon={UserMultiple03Icon} /> },
+    { name: 'Billing', path: '/billing', icon: <HugeiconsIcon icon={Invoice02Icon} /> },
+    { name: 'Invoice', path: '/invoice', icon: <HugeiconsIcon icon={SecurityCheckIcon} /> },
+    { name: 'Legal', path: '/legal', icon: <HugeiconsIcon icon={Location09Icon} /> },
+    { name: 'Notifications', path: '/notifications', icon: <HugeiconsIcon icon={Notification01Icon} /> },
   ];
 
   return (
@@ -20,11 +20,11 @@ const Settings: React.FC = () => {
       </h3>
       <nav className="px-2">
         {/* Show Profile as another option on small screens */}
-        <div className="block lg:hidden">
-            <a
-            href="#"
-            className="group flex items-center px-2 py-2 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
-            >
+    <div className="block lg:hidden">
+      <a
+      href="/profile"
+      className="group flex items-center px-2 py-2 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+      >
             <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
                 <span className="text-lg">
                 <HugeiconsIcon icon={UserIcon} />
@@ -36,7 +36,7 @@ const Settings: React.FC = () => {
         {settingsMenuItems.map((item) => (
           <a
             key={item.name}
-            href="#"
+            href={item.path}
             className="group flex items-center px-2 py-2 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
           >
             <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
@@ -48,7 +48,7 @@ const Settings: React.FC = () => {
       {/* Show Log-out as another option on small screens */}
       <div className="block lg:hidden">
         <a
-          href="#"
+          href="/logout"
           className="group flex items-center px-2 py-2 hover:bg-gray-50 hover:text-gray-900"
         >
           <div className="flex items-center gap-2 lg:flex-row flex-row-reverse w-full">
