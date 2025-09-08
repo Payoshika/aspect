@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Uppy from '@uppy/core';
-import { Dashboard } from '@uppy/react';
-import '@uppy/core/dist/style.css';
-import '@uppy/dashboard/dist/style.css';
+import React, { useEffect, useState } from "react";
+import Uppy from "@uppy/core";
+import { Dashboard } from "@uppy/react";
+import "@uppy/core/dist/style.css";
+import "@uppy/dashboard/dist/style.css";
 
 interface ImageUploaderProps {
   onImagesSelected?: (files: File[]) => void;
@@ -11,24 +11,30 @@ interface ImageUploaderProps {
   allowedFileTypes?: string[];
   className?: string;
   disabled?: boolean;
+  dropPasteText?: string;
+  browseText?: string;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
   onImagesSelected,
   maxFiles = 10,
-  maxFileSize = 10 * 1024 * 1024, 
-  allowedFileTypes = ['image/*'],
-  className = '',
-  disabled = false
+  maxFileSize = 10 * 1024 * 1024,
+  allowedFileTypes = ["image/*"],
+  className = "",
+  disabled = false,
+  dropPasteText = "Choose images or %{browseFiles}",
 }) => {
-  const [uppy] = useState(() => new Uppy({
-    restrictions: {
-      maxFileSize,
-      maxNumberOfFiles: maxFiles,
-      allowedFileTypes
-    },
-    autoProceed: false
-  }));
+  const [uppy] = useState(
+    () =>
+      new Uppy({
+        restrictions: {
+          maxFileSize,
+          maxNumberOfFiles: maxFiles,
+          allowedFileTypes,
+        },
+        autoProceed: false,
+      })
+  );
 
   useEffect(() => {
     const handleFileAdded = (file: any) => {
@@ -40,12 +46,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       onImagesSelected?.(files);
     };
 
-    uppy.on('file-added', handleFileAdded);
-    uppy.on('complete', handleComplete);
+    uppy.on("file-added", handleFileAdded);
+    uppy.on("complete", handleComplete);
 
     return () => {
-      uppy.off('file-added', handleFileAdded);
-      uppy.off('complete', handleComplete);
+      uppy.off("file-added", handleFileAdded);
+      uppy.off("complete", handleComplete);
     };
   }, [uppy, onImagesSelected]);
 
@@ -64,22 +70,23 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         height="400px"
         proudlyDisplayPoweredByUppy={false}
         showProgressDetails={true}
-        note={`Images only, up to ${maxFiles} files, max ${Math.round(maxFileSize / (1024 * 1024))}MB each`}
+        note={`Images only, up to ${maxFiles} files, max ${Math.round(
+          maxFileSize / (1024 * 1024)
+        )}MB each`}
         locale={{
           strings: {
-            // dropPaste: 'Drop images here, %{browse} or paste from clipboard',
-            // browse: 'browse',
-            uploadComplete: 'Upload complete',
-            uploadFailed: 'Upload failed',
+            dropPasteFiles: dropPasteText,
+            uploadComplete: "Upload complete",
+            uploadFailed: "Upload failed",
             uploadXFiles: {
-              0: 'Upload %{smart_count} file',
-              1: 'Upload %{smart_count} files'
+              0: "Upload %{smart_count} file",
+              1: "Upload %{smart_count} files",
             },
             uploadXNewFiles: {
-              0: 'Upload +%{smart_count} file',
-              1: 'Upload +%{smart_count} files'
-            }
-          }
+              0: "Upload +%{smart_count} file",
+              1: "Upload +%{smart_count} files",
+            },
+          },
         }}
         disabled={disabled}
       />
