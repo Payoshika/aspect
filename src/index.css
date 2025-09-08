@@ -2,6 +2,7 @@
 
 body {
   background-color: #f7f9fd;
+  color: var(--color-primary);
   a {
     text-decoration: none;
     color: inherit;

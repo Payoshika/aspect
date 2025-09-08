@@ -1,5 +1,5 @@
-import React from 'react';
-import InvoiceList from './InvoiceList';
+import React from "react";
+import InvoiceList from "./InvoiceList";
 
 const InvoiceLayout: React.FC = () => {
   return (
