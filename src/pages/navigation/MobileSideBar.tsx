@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import Settings from './Settings';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Menu01Icon } from '@hugeicons/core-free-icons';
+import React, { useState } from "react";
+import Settings from "./Settings";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Menu01Icon } from "@hugeicons/core-free-icons";
 
-Menu01Icon
 const MobileSideBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,17 +26,12 @@ const MobileSideBar: React.FC = () => {
       </button>
 
       {/* Overlay - transparent to keep background visible */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={closeSidebar}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={closeSidebar} />}
 
       {/* Slide-out Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Settings Content */}
